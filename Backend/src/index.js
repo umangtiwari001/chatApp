@@ -13,16 +13,34 @@ dotenv.config();
 const PORT = process.env.PORT;
 const __dirname = path.resolve();
 
-// CORS (first)
+// cors (first)
 // app.use(cors({
 //   origin: "http://localhost:5173",
+
 //   credentials: true
 // }));
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://chatapp-6-ktwr.onrender.com"  // deployed frontend
+  "https://chatapp-6-ktwr.onrender.com"
 ];
+
+app.use(cors({
+  origin: function(origin, callback) {
+    if (!origin) return callback(null, true); // Postman/curl requests
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = "The CORS policy for this site does not allow access from the specified Origin.";
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true
+}));
+
+// const allowedOrigins = [
+//   "http://localhost:5173",
+//   "https://chatapp-6-ktwr.onrender.com"  // deployed frontend
+// ];
 
 // Body size limit
 app.use(express.json({ limit: "10mb" }));
