@@ -22,8 +22,10 @@ const __dirname = path.resolve();
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://chatapp-6-ktwr.onrender.com"
+  "https://chatapp-6-ktwr.onrender.com",
+  "https://my-chatapp-kjvr.onrender.com" // deployed frontend
 ];
+
 
 app.use(cors({
   origin: function(origin, callback) {
